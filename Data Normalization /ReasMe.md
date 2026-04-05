@@ -6,52 +6,261 @@
 
 **Batch: ENTC A1**
 
-**Title**
 
-**Implementation of Data Normalization and Data Type Conversion in Python**
+# Experiment 14 — Data Normalization & Encoding of Categorical Variables in Python
 
-**Aim**
+---
 
-To study and implement data preprocessing techniques, specifically Data Normalization and Data Type Conversion, to standardize numerical scales and ensure consistent data structures using Pandas and NumPy.
+## Aim
 
-**Objectives**
-- To understand the importance of Data Normalization in scaling numerical features.
-- To implement scaling techniques such as Simple Feature Scaling, Min-Max Scaling, and Z-score Normalization.
-- To perform Data Type Conversion to ensure compatibility for mathematical operations.
-- To identify and handle inconsistent data types in imported datasets.
+To understand and implement essential data preprocessing techniques using Python libraries such as Pandas and Scikit-learn. The experiment focuses on:
 
-**Theory on Data Normalization**
+* Data Normalization techniques: Min-Max Scaling, Z-Score Standardization, and Decimal Scaling.
+* Encoding categorical variables: Label Encoding, One-Hot Encoding, and Dummy Encoding.
 
-Data Normalization is a crucial preprocessing step used to adjust the values of numeric columns in a dataset to a common scale without distorting differences in the ranges of values. This is essential because many machine learning algorithms perform poorly if the features have vastly different scales (e.g., comparing Age 0–100 with Salary 0–1,000,000).
+---
 
-Normalization Techniques
+## Introduction
 
-1. Simple Feature Scaling: Divides each value by the maximum value of that column, resulting in a range between 0 and 1.
-Formula: $x_{new} = \frac{x_{old}}{x_{max}}$ 
-2. Min-Max Scaling: Rescales the data to a fixed range, usually 0 to 1, by subtracting the minimum and dividing by the range.
-Formula: $x_{new} = \frac{x_{old} - x_{min}}{x_{max} - x_{min}}$
-3. Z-score Normalization (Standardization): Transforms data to have a mean of 0 and a standard deviation of 1.
-Formula: $x_{new} = \frac{x_{old} - \mu}{\sigma}$
+In practical data science workflows, raw data is rarely in a usable format. Before applying machine learning algorithms, preprocessing is required to improve data quality and ensure compatibility.
 
-**Theory on Data Type Conversion**
+Two major preprocessing tasks are:
 
-Data Type Conversion (or Type Casting) is the process of converting one data type into another to ensure data integrity and computational efficiency. Often, data imported from CSV files may be read as "Object" (string) even if they contain numbers, preventing mathematical analysis.
+### 1. Data Normalization
 
-Common Conversion Tasks
-- Object to Float/Int: Converting string-based numbers into actual numerical types to allow for operations like mean() or sum().
-- Int to Float: Ensuring precision during division or normalization operations.
-- Boolean/Categorical Conversion: Converting text labels into categories to save memory and improve processing speed.
+Numerical features in datasets often have different scales. For example, product prices may range in thousands while ratings remain within a small range. If not scaled properly, larger values dominate model behavior. Normalization adjusts feature values to a comparable scale without altering relationships.
 
-**Data Wrangling Operations**
-Based on the implemented code in the notebook, the following wrangling tasks were performed:
-1. Scaling Numerical Columns
-In the Student Database and Cars93 datasets, columns such as "CGPA", "Marks", and "Price" were normalized. This ensures that high-magnitude values (like Price) do not dominate low-magnitude values (like CGPA) during analysis.
-2. Standardizing Data TypesThe dtypes attribute was used to inspect the dataset. The .astype() method was then applied to convert columns that were incorrectly identified as objects into numerical formats, enabling the application of the normalization formulas mentioned above.
+### 2. Encoding Categorical Variables
 
-**Applications**
-- Machine Learning: Preprocessing features for algorithms like K-Nearest Neighbors (KNN) or Support Vector Machines (SVM) that are sensitive to scale.
-- Data Integration: Aligning data types from different sources (e.g., SQL databases vs. CSV files) before merging.
-- Statistical Analysis: Ensuring all variables are on a comparable scale for calculating correlations or variances.
+Machine learning models require numerical input. Categorical attributes such as gender, department, or payment method must be converted into numeric representations using encoding techniques.
+
+This experiment demonstrates these techniques using both manually created datasets and real-world datasets.
+
+---
+
+## Libraries Used
+
+### Pandas
+
+Used for data handling and manipulation. It provides DataFrames and functions for preprocessing tasks such as normalization and encoding.
+
+### NumPy
+
+Supports numerical operations like mean, standard deviation, and array computations used during normalization.
+
+### Scikit-learn
+
+Provides preprocessing utilities. The LabelEncoder class is used to convert categorical labels into numerical values.
+
+---
+
+## Preprocessing Techniques
+
+### Part A: Data Normalization
+
+#### Min-Max Scaling
+
+Rescales values into the range [0, 1].
+
+Formula:
+(x - min) / (max - min)
+
+Used when models require bounded inputs.
+
+#### Z-Score Standardization
+
+Transforms data to have mean 0 and standard deviation 1.
+
+Formula:
+(x - mean) / standard deviation
+
+Useful for algorithms that assume normally distributed data.
+
+#### Decimal Scaling
+
+Divides values by a power of 10 to bring them into a smaller range.
+
+Formula:
+x / (10^k)
+
+A quick and simple scaling approach.
+
+#### Multi-Column Scaling
+
+Applies normalization simultaneously to multiple columns using vectorized operations in Pandas.
+
+---
+
+### Part B: Encoding Categorical Variables
+
+#### Label Encoding
+
+Assigns a unique integer to each category.
+
+Example:
+Female → 0, Male → 1
+
+Suitable for binary or ordinal data.
+
+#### One-Hot Encoding
+
+Creates separate binary columns for each category.
+
+Example:
+Payment_Method → Credit Card, PayPal → two separate columns
+
+Best for nominal data with no ordering.
+
+#### Dummy Encoding
+
+Similar to One-Hot Encoding but removes one column to prevent redundancy.
+
+Used in regression models to avoid multicollinearity.
+
+---
+
+## Theory Overview
+
+### Min-Max Scaling
+
+Transforms values proportionally within a fixed range. The smallest value becomes 0 and the largest becomes 1.
+
+### Z-Score Standardization
+
+Centers data around zero and scales based on spread, making it easier to compare distributions.
+
+### Decimal Scaling
+
+Reduces magnitude by dividing by powers of 10, based on the maximum value.
+
+### Label Encoding
+
+Converts text categories into numeric form but may introduce unintended ordering.
+
+### One-Hot Encoding
+
+Eliminates ordering issues by creating independent binary features.
+
+### Dummy Encoding
+
+Reduces feature redundancy while preserving information.
+
+---
+
+## Key Functions Used
+
+* `pd.DataFrame()` – Create DataFrame
+* `pd.read_csv()` – Load CSV files
+* `df.min(), df.max(), df.mean(), df.std()` – Statistical calculations
+* `pd.get_dummies()` – One-Hot/Dummy encoding
+* `LabelEncoder()` – Encode categorical labels
+* `fit_transform()` – Fit and apply transformation
+
+---
+
+## Algorithm / Procedure
+
+### Part A: Normalization
+
+1. Import required libraries.
+2. Create dataset using a dictionary.
+3. Apply Min-Max scaling to selected columns.
+4. Perform Z-Score normalization.
+5. Apply Decimal Scaling.
+6. Normalize multiple columns simultaneously.
+7. Load external dataset and repeat steps.
+8. Verify outputs.
+
+### Part B: Encoding
+
+1. Create categorical dataset.
+2. Apply Label Encoding to binary columns.
+3. Perform One-Hot Encoding on nominal columns.
+4. Apply Dummy Encoding with drop_first=True.
+5. Load student dataset and repeat encoding.
+6. Validate transformed outputs.
+
+---
+
+## Dataset Description
+
+### Product Dataset
+
+* Columns: Product, Price, Units_Sold, Discount
+* Rows: 6
+* Source: Manually created
+
+### Amazon Dataset
+
+* Columns: Product_ID, Product_Name, Price, Rating, Reviews, Units_Sold
+* Rows: 50
+* Source: CSV file
+
+### Orders Dataset
+
+* Columns: Order ID, Customer_Gender, Payment_Method, Category, City, Order_Value
+* Rows: 6
+
+### Student Dataset
+
+* Columns: Roll_No, Gender, Department, CGPA, Backlogs, Attendance, Placement_Status, Salary
+* Rows: 10
+
+---
+
+## Applications
+
+* E-commerce recommendation systems
+* Banking risk analysis
+* Healthcare predictions
+* Placement analytics
+* Natural language processing
+* Computer vision models
+
+---
+
+## Conclusion
+
+This experiment demonstrated how normalization and encoding prepare data for machine learning models.
+
+Normalization ensures that numerical features contribute equally, while encoding converts categorical values into machine-readable formats.
+
+Choosing the correct method depends on:
+
+* Data type (numerical or categorical)
+* Nature of categories (ordinal or nominal)
+* Model requirements
+
+These preprocessing steps are essential for building accurate and efficient models.
+
+---
+
+## Additional Notes
+
+### Label vs One-Hot Encoding
+
+Label encoding should be used only for ordinal or binary data. One-Hot encoding is preferred for nominal variables.
+
+### Dummy Variable Trap
+
+Using all One-Hot columns can lead to redundancy. Dropping one column avoids this issue.
+
+### fit vs transform
+
+* fit(): Learns parameters
+* transform(): Applies transformation
+* fit_transform(): Combines both
+
+### Normalization Guidelines
+
+| Scenario             | Technique       |
+| -------------------- | --------------- |
+| Fixed range required | Min-Max         |
+| Normal distribution  | Z-Score         |
+| Quick scaling        | Decimal Scaling |
+| Tree-based models    | Not necessary   |
+
+---
 
 **Conclusion**
 
