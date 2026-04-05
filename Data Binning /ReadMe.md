@@ -1,71 +1,233 @@
 
-**Experiment-13**
-
 **Name: Prithvi Ratkalkar**
 
 **PRN: 250701230165**
 
 **Batch: ENTC A1**
 
-**Title**
+# **Experiment 13 – Data Binning and Formatting Using Python**
 
-**Implementation of Data Binning and Data Formatting in Python**
+## **Aim**
 
-**Aim**
+To perform data binning and formatting using Python and the Pandas library in order to organize continuous data into discrete intervals and improve the readability and presentation of datasets.
 
-To study and implement data preprocessing techniques, specifically Data Binning and Data Formatting, to transform raw numerical data into structured categorical groups and standardized formats using Pandas.
+---
 
-**Objectives**
+## **Objectives**
 
-- To understand the concept of Data Binning (Binned Analysis).
-- To transform continuous numerical variables into discrete categorical "bins".
-- To apply Data Formatting to ensure consistency in units and data types.
-- To use Pandas functions like pd.cut() for segmenting data.
-- To visualize the distribution of binned data using histograms.
+* To understand the concept of data binning and formatting
+* To group continuous data into meaningful categories
+* To perform equal-width and custom binning using Pandas
+* To label data bins for better interpretation
+* To format numerical and textual data for improved readability
+* To convert data types and apply formatting functions
+* To prepare clean and structured data for analysis and visualization
 
-**Theory on Data Binning**
+---
 
-Data Binning (or bucketing) is a data preprocessing technique used to reduce the effects of minor observation errors or to convert continuous numerical data into a smaller number of "bins".
+## **Introduction**
 
-Types of Binning
+In data analysis, raw data is often complex and difficult to interpret, especially when it contains continuous numerical values. Data binning is a technique used to group such continuous data into discrete intervals or “bins,” making it easier to understand patterns and trends.
 
-- Equal Width Binning: The range of the variable is divided into $N$ intervals of equal size.
-- Equal Frequency Binning: The intervals are chosen such that each bin contains approximately the same number of observations.
+Data formatting, on the other hand, focuses on improving the presentation and readability of data by modifying its structure, type, or appearance. This includes tasks such as rounding values, converting data types, and standardizing formats.
 
-Why Binning is Used
+Python, along with the Pandas library, provides powerful tools to perform both data binning and formatting efficiently. Functions like `cut()` and `qcut()` allow grouping of data into intervals, while formatting functions help present data in a clean and meaningful way.
 
-- Simplification: It makes complex numerical data easier to analyze by grouping similar values together.
-- Noise Reduction: It smooths out small variations or "noise" in the data.
-- Categorical Analysis: It allows numerical data to be treated as categorical data, which is useful for certain machine learning models.
+These techniques are widely used in data preprocessing, statistical analysis, business reporting, and visualization, where organized and well-formatted data is essential for accurate interpretation.
 
-**Theory on Data Formatting**
+---
 
-Data Formatting refers to the process of cleaning and transforming data into a common standard to allow for meaningful comparison. Data collected from different sources often comes in different formats, units, or types.
+## **Theory**
 
-Common Formatting Tasks
+### **1. Data Binning**
 
-- Unit Conversion: Ensuring all measurements use the same units (e.g., converting miles per gallon to liters per 100km).
-- Data Type Conversion: Ensuring columns have the correct type, such as converting "Object" types to "Float" or "Int" for mathematical operations.
-- Standardization: Ensuring string data (like names or categories) follows a consistent case or format.
+Data binning is the process of converting continuous numerical data into categorical data by dividing it into intervals or bins. This helps simplify complex data and makes patterns easier to identify.
 
-**Data Wrangling Operations**
-Based on the implemented logic, the following wrangling techniques are applied:
+For example, marks of students can be grouped into categories such as “0–50”, “50–75”, and “75–100”. This reduces the complexity of analysis and improves interpretability.
 
-1. Binning Numerical Data
+---
 
-In the Student Database, continuous variables like CGPA or Marks are often binned into categories like "Low", "Average", and "High" using the pd.cut() function. Similarly, in the Cars93 dataset, "Price" can be binned into "Budget", "Mid-range", and "Luxury".
+### **2. Types of Binning**
 
-2. Formatting and Type Casting
+**a) Equal-Width Binning**
+In this method, the entire range of data is divided into intervals of equal size. Each bin covers the same range of values.
 
-- Standardizing Column Types: Using .astype() to convert numerical strings into proper integers or floats to enable statistical calculations like mean() or max().
-- Handling Categorical Units: Formatting categorical labels to be unique and consistent to prevent duplicate categories in value_counts().
+**b) Equal-Frequency Binning**
+In this method, each bin contains approximately the same number of data points. This ensures balanced distribution across bins.
 
-**Applications**
+Pandas provides:
 
-- Academic Grading: Converting raw marks into grade bins (A, B, C).
-- Economic Research: Grouping income levels into specific brackets for demographic study.
-- Industrial Data: Converting sensor readings into "Normal" or "Critical" status bins for monitoring.
+* `cut()` for equal-width binning
+* `qcut()` for equal-frequency binning
 
-**Conclusion**
+---
 
-The experiment demonstrates that Data Binning and Formatting are essential steps in data preparation. Binning allows for better visualization of distributions and simplifies numerical complexity, while Formatting ensures that data from multiple sources is consistent and ready for accurate computation. These techniques are fundamental to ensuring data quality in any analytical pipeline.
+### **3. Labeling Bins**
+
+After creating bins, labels can be assigned to make them more meaningful and easier to interpret. Instead of numeric intervals, descriptive labels such as “Low”, “Medium”, and “High” can be used.
+
+---
+
+### **4. Data Formatting**
+
+Data formatting involves modifying data to improve its presentation and usability. This includes:
+
+* Rounding numerical values
+* Converting data types (e.g., float to integer)
+* Changing text case (uppercase/lowercase)
+* Formatting strings
+
+Proper formatting enhances readability and ensures consistency across the dataset.
+
+---
+
+### **5. Type Conversion**
+
+Sometimes, data may not be in the correct format for analysis. Converting data types ensures proper operations can be performed.
+
+Example:
+
+* String to integer
+* Float to integer
+* Object to category
+
+---
+
+### **6. Rounding and Precision**
+
+Rounding numerical data helps in reducing unnecessary precision and improving clarity.
+
+Example:
+
+* Rounding to 2 decimal places for financial data
+
+---
+
+## **Algorithms**
+
+### **Algorithm 1: Data Binning Using Equal-Width Method**
+
+1. Start
+2. Import Pandas library
+3. Load dataset into DataFrame
+4. Select continuous data column
+5. Apply `cut()` function to create bins
+6. Assign labels to bins
+7. Display binned data
+8. Stop
+
+---
+
+### **Algorithm 2: Data Binning Using Equal-Frequency Method**
+
+1. Start
+2. Import Pandas library
+3. Load dataset
+4. Select numerical column
+5. Apply `qcut()` function
+6. Assign labels to bins
+7. Display results
+8. Stop
+
+---
+
+### **Algorithm 3: Data Formatting**
+
+1. Start
+2. Load dataset
+3. Select columns for formatting
+4. Apply rounding using `round()`
+5. Convert data types using `astype()`
+6. Modify text using string functions
+7. Display formatted dataset
+8. Stop
+
+---
+
+## **Sample Code Snippets**
+
+### **Creating Dataset**
+
+```python
+import pandas as pd
+
+data = {
+    'Name': ['A', 'B', 'C', 'D'],
+    'Marks': [45, 67, 89, 72]
+}
+
+df = pd.DataFrame(data)
+print(df)
+```
+
+---
+
+### **Equal-Width Binning**
+
+```python
+df['Marks_Bin'] = pd.cut(df['Marks'], bins=3)
+print(df)
+```
+
+---
+
+### **Equal-Frequency Binning**
+
+```python
+df['Marks_Bin'] = pd.qcut(df['Marks'], q=3)
+print(df)
+```
+
+---
+
+### **Labeling Bins**
+
+```python
+labels = ['Low', 'Medium', 'High']
+df['Marks_Bin'] = pd.cut(df['Marks'], bins=3, labels=labels)
+```
+
+---
+
+### **Data Formatting**
+
+```python
+df['Marks'] = df['Marks'].astype(float)
+df['Marks'] = df['Marks'].round(2)
+```
+
+---
+
+### **String Formatting**
+
+```python
+df['Name'] = df['Name'].str.upper()
+```
+
+---
+
+## **Applications**
+
+* Grouping continuous data for statistical analysis
+* Data preprocessing in machine learning
+* Business reporting and dashboard creation
+* Academic performance categorization
+* Survey data simplification
+* Data visualization and chart preparation
+
+---
+
+## **Advantages**
+
+* Simplifies complex numerical data
+* Improves readability and interpretation
+* Helps in identifying patterns and trends
+* Enhances data presentation quality
+* Supports better decision-making
+* Integrates well with data visualization tools
+
+---
+
+## **Result**
+
+Data binning and formatting were successfully performed using Python and the Pandas library. Continuous data was grouped into meaningful categories, and formatting techniques were applied to improve data readability and structure. The dataset became more organized, interpretable, and suitable for further analysis and visualization.
